@@ -2,26 +2,22 @@ use std::i8;
 
 use rand::{
     distributions::{Distribution, Standard},
-    rngs::ThreadRng
+    rngs::ThreadRng,
 };
 
 use crate::characters::{
     Character,
     People,
-    SurvivalStatus
+    SurvivalStatus,
 };
-
-pub fn get_event() -> Events {
-    Events::Trial(Trial)
-}
 
 #[allow(unused_variables)]
 pub trait EventHandle {
-    fn handle<'main>(
+    fn handle<'a>(
         self: &Self,
-        rng: &'main ThreadRng,
-        player: &'main mut Character,
-        characters: &'main mut Vec<People>
+        rng: &'a ThreadRng,
+        player: &'a mut Character,
+        characters: &'a mut Vec<People>,
     ) -> EventReturn {
         EventReturn::None
     }
@@ -31,13 +27,13 @@ pub trait EventHandle {
 pub struct Trial;
 
 impl EventHandle for Trial {
-    fn handle<'main>(
+    fn handle<'a>(
         self: &Self,
-        rng: &'main ThreadRng,
-        player: &'main mut Character,
-        characters: &'main mut Vec<People>
+        rng: &'a ThreadRng,
+        player: &'a mut Character,
+        characters: &'a mut Vec<People>,
     ) -> EventReturn {
-        let mut player_status = SurvivalStatus::PlayerDied;
+        let mut player_status: SurvivalStatus = SurvivalStatus::PlayerDied;
 
         println!("You have been summoned before the court.\n");
 
@@ -53,11 +49,11 @@ impl EventHandle for Trial {
 pub struct WildAccusation;
 
 impl EventHandle for WildAccusation {
-    fn handle<'main>(
+    fn handle<'a>(
         self: &Self,
-        rng: &'main ThreadRng,
-        player: &'main mut Character,
-        characters: &'main mut Vec<People>
+        rng: &'a ThreadRng,
+        player: &'a mut Character,
+        characters: &'a mut Vec<People>,
     ) -> EventReturn {
         EventReturn::None
     }
@@ -65,15 +61,15 @@ impl EventHandle for WildAccusation {
 
 #[derive(Debug)]
 pub enum Events {
-    Trial(Trial)
+    Trial(Trial),
 }
 
 impl Distribution<Events> for Standard {
     fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> Events {
         match rng.gen_range(0..=0) {
             0 => Events::Trial(Trial),
-            1 => Events::Trial(Trial),
-            _ => unreachable!()
+            1 => todo!(),
+            _ => unreachable!(),
         }
     }
 }
@@ -81,5 +77,5 @@ impl Distribution<Events> for Standard {
 #[derive(Debug)]
 pub enum EventReturn {
     Survival(SurvivalStatus),
-    None
+    None,
  }

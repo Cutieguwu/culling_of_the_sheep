@@ -5,7 +5,7 @@ use crate::Gamemode;
 #[derive(Debug, Clone)]
 pub struct Character {
     pub name: &'static str,
-    pub standing: Standing
+    pub standing: Standing,
 }
 
 impl Character {
@@ -47,7 +47,7 @@ pub struct Standing {
     pub society: i8,
     pub court: i8,
     pub friends: Vec<&'static People>,
-    pub enemies: Vec<&'static People>
+    pub enemies: Vec<&'static People>,
 }
 
 impl Standing {
@@ -90,7 +90,7 @@ pub enum People {
     SarahGood(Option<Character>),
     SusannaWalcott(Option<Character>),
     ThomasPutnam(Option<Character>),
-    Tituba(Option<Character>)
+    Tituba(Option<Character>),
 }
 
 impl People {
@@ -109,7 +109,7 @@ impl People {
                     enemies: vec![
                         &People::ElizabethProctor(None),
                         &People::JohnProctor(None),
-                        &People::ReverendJohnHale(None)
+                        &People::ReverendJohnHale(None),
                     ]
                 }
             })),
@@ -122,12 +122,12 @@ impl People {
                         &People::BettyParris(None),
                         &People::ThomasPutnam(None),
                         &People::ReverendParris(None),
-                        &People::MercyLewis(None)
+                        &People::MercyLewis(None),
                     ],
                     enemies: vec![
                         &People::ElizabethProctor(None),
                         &People::JohnProctor(None),
-                        &People::RebeccaNurse(None)
+                        &People::RebeccaNurse(None),
                     ]
                 }
             })),
@@ -138,11 +138,11 @@ impl People {
                     court: 10,
                     friends: vec![
                         &People::AbigailWilliams(None),
-                        &People::ReverendParris(None)
+                        &People::ReverendParris(None),
                     ],
                     enemies: vec![
                         &People::JohnProctor(None),
-                        &People::ElizabethProctor(None)
+                        &People::ElizabethProctor(None),
                     ]
                 }
             })),
@@ -156,7 +156,7 @@ impl People {
                         &People::JudgeHathorne(None),
                         &People::ReverendParris(None),
                         &People::EzekielCheever(None),
-                        &People::MarshalHerrick(None)
+                        &People::MarshalHerrick(None),
                     ],
                     enemies: vec![
                         &People::ElizabethProctor(None),
@@ -164,7 +164,7 @@ impl People {
                         &People::ReverendJohnHale(None),
                         &People::FrancisNurse(None),
                         &People::GilesCorey(None),
-                        &People::MarthaCorey(None)
+                        &People::MarthaCorey(None),
                     ]
                 }
             })),
@@ -178,12 +178,12 @@ impl People {
                         &People::GilesCorey(None),
                         &People::JohnProctor(None),
                         &People::RebeccaNurse(None),
-                        &People::ReverendJohnHale(None)
+                        &People::ReverendJohnHale(None),
                     ],
                     enemies: vec![
                         &People::AbigailWilliams(None),
                         &People::DeputyGovernorDanforth(None),
-                        &People::EzekielCheever(None)
+                        &People::EzekielCheever(None),
                     ]
                 }
             })),
@@ -197,14 +197,14 @@ impl People {
                         &People::DeputyGovernorDanforth(None),
                         &People::ReverendParris(None),
                         &People::ReverendJohnHale(None),
-                        &People::JudgeHathorne(None)
+                        &People::JudgeHathorne(None),
                 
                     ],
                     enemies: vec![
                         &People::ElizabethProctor(None),
                         &People::JohnProctor(None),
                         &People::FrancisNurse(None),
-                        &People::GilesCorey(None)
+                        &People::GilesCorey(None),
                     ]
                 }
             })),
@@ -223,7 +223,7 @@ impl People {
                         &People::AbigailWilliams(None),
                         &People::ReverendJohnHale(None),
                         &People::JudgeHathorne(None),
-                        &People::ThomasPutnam(None)
+                        &People::ThomasPutnam(None),
                     ]
                 }
             })),
@@ -237,7 +237,7 @@ impl People {
                         &People::FrancisNurse(None),
                         &People::JohnProctor(None),
                         &People::MarthaCorey(None),
-                        &People::GilesCorey(None)
+                        &People::GilesCorey(None),
                     ],
                     enemies: vec![
                         &People::ThomasPutnam(None),
@@ -246,7 +246,7 @@ impl People {
                         &People::JudgeHathorne(None),
                         &People::EzekielCheever(None),
                         &People::MarshalHerrick(None),
-                        &People::AbigailWilliams(None)
+                        &People::AbigailWilliams(None),
                     ]
                 }
             })),
@@ -264,7 +264,7 @@ impl People {
                         &People::EzekielCheever(None),
                         &People::JudgeHathorne(None),
                         &People::ReverendJohnHale(None),
-                        &People::MarshalHerrick(None)
+                        &People::MarshalHerrick(None),
                     ]
                 }
             })),
@@ -296,7 +296,7 @@ impl Distribution<People> for Standard {
             19 => People::SusannaWalcott(None),
             20 => People::ThomasPutnam(None),
             21 => People::Tituba(None),
-            _ => unreachable!()
+            _ => unreachable!(),
         }
     }
 }
@@ -305,5 +305,5 @@ impl Distribution<People> for Standard {
 pub enum SurvivalStatus {
     PlayerMassacred,
     PlayerLived,
-    PlayerDied
+    PlayerDied,
 }
