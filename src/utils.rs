@@ -1,8 +1,7 @@
 use std::{
     env::args,
-    io,
+    io, ops::Deref,
 };
-
 
 const DASH: char = 45 as u8 as char;
 
@@ -24,26 +23,34 @@ pub enum FlagType {
 pub fn fmt_args() -> Vec<ArgType> {
     let mut args_vec:Vec<ArgType> = Vec::new();
 
-    for obj in args() { match try_flag(obj.clone()) {
-        None => args_vec.push(ArgType::Command(obj)),
-        Some(flag) => args_vec.push(ArgType::Flag(flag)),
-    }}
+    for obj in args() { 
+        args_vec.push(match try_flag(&obj) {
+            None => ArgType::Command(obj),
+            Some(flag) => ArgType::Flag(flag),
+        })
+    };
 
-    args_vec[0] = ArgType::Binary(match args_vec[0].clone() {
-        ArgType::Command(command) => command,
-        err => panic!("Expected ArgType::Command at args_vec[0], found {:?}", err)
+    args_vec[0] = ArgType::Binary(match &args_vec[0] {
+        ArgType::Command(command) => command.clone(),
+        err => panic!(
+            "Expected ArgType::Command at args_vec[0], found {:?}",
+            err,
+        )
     });
 
     args_vec
 }
 
-fn try_flag(arg: String) -> Option<FlagType> {
-    if arg.chars().nth(1).unwrap() == DASH {
+fn try_flag<'a>(arg: &'a String) -> Option<FlagType> {
+    // Short term var to reduce number of chars() calls.
+    let mut arg_chars = arg.chars();
+
+    if arg_chars.nth(1).unwrap() == DASH {
         //eg. --my-flag
-        Some(FlagType::Long(break_flag_long(arg)))
-    } else if arg.chars().nth(0).unwrap() == DASH {
+        Some(FlagType::Long(break_flag_long(arg.clone())))
+    } else if arg_chars.nth(0).unwrap() == DASH {
         //eg. -Syu
-        Some(FlagType::Short(break_flag_short(arg)))
+        Some(FlagType::Short(break_flag_short(arg.clone())))
     } else {
         None
     }
@@ -51,11 +58,14 @@ fn try_flag(arg: String) -> Option<FlagType> {
 
 fn break_flag_short(mut arg: String) -> String {
     arg.remove(0);
+
     arg
 }
 
 fn break_flag_long(mut arg: String) -> String {
-    for _ in 1..=2 { arg.remove(0); };
+    for _ in 1..=2 { 
+        arg.remove(0);
+    };
 
     arg
 }

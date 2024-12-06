@@ -51,10 +51,10 @@ pub struct Standing {
 }
 
 impl Standing {
-    pub fn calculate (mut self: Standing) -> i8 {
+    pub fn calculate (mut self: Self) -> i8 {
         // Drain society points if mostly disliked.
         if self.friends.len() < self.enemies.len() {
-            self.society = self.society.clone() - 2
+            self.society = &self.society - 2
         }
 
         // Points
