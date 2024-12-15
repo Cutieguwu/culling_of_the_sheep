@@ -121,8 +121,11 @@ impl EventHandle for Trial {
         // Have the player stand trial.
         // A wild accusation may not be enough to save them.
         if player.standing.clone().calculate() > {0 as i8} {
+            println!("The court has taken pity upon you. You are purged of all evil.");
             SurvivalStatus::PlayerLived
         } else {
+            println!("The court remains unconvinced of your faith.");
+            println!("No one wishes to fall with you.");
             SurvivalStatus::PlayerDied
         }
     }
@@ -150,7 +153,7 @@ impl EventHandle for WildAccusation {
 
         print_breakline();
 
-        println!("{:?} accused {:?}", accuser, accusee);
+        println!("{:?} accused {:?}", accuser.name, accusee.name);
 
         push_enemy(accuser, accusee, characters);
 

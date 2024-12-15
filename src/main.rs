@@ -45,8 +45,6 @@ fn main() {
             &mut characters,
         );
 
-        dbg!(&characters);
-
         if characters.len() == 1 {
             end_status = SurvivalStatus::PlayerMassacred;
         };
