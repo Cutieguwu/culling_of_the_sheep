@@ -1,0 +1,323 @@
+[
+    Character (
+        id: AbigailWilliams,
+        name: "Abigail Williams",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [
+                BettyParris,
+                DeputyGovernorDanforth,
+                ReverendParris,
+            ],
+            enemies: [
+                ElizabethProctor,
+                JohnProctor,
+                ReverendJohnHale,
+            ]
+        )
+    ),
+    Character (
+        id: AnnPutnam,
+        name: "Ann Putnam",
+        standing: Standing (
+            society: 10,
+            court: 7,
+            friends: [
+                BettyParris,
+                ThomasPutnam,
+                ReverendParris,
+                MercyLewis,
+            ],
+            enemies: [
+                ElizabethProctor,
+                JohnProctor,
+                RebeccaNurse,
+            ]
+        )
+    ),
+    Character (
+        id: BettyParris,
+        name: "Betty Parris",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [
+                AbigailWilliams,
+                ReverendParris,
+            ],
+            enemies: [
+                JohnProctor,
+                ElizabethProctor,
+            ]
+        )
+    ),
+    Character (
+        id: DeputyGovernorDanforth,
+        name: "Deputy Governor Danforth",
+        standing: Standing (
+            society: 10,
+            court: 100,
+            friends: [
+                AbigailWilliams,
+                JudgeHathorne,
+                ReverendParris,
+                EzekielCheever,
+                MarshalHerrick,
+            ],
+            enemies: [
+                ElizabethProctor,
+                JohnProctor,
+                ReverendJohnHale,
+                FrancisNurse,
+                GilesCorey,
+                MarthaCorey,
+            ]
+        )
+    ),
+    Character (
+        id: ElizabethProctor,
+        name: "Elizabeth Proctor",
+        standing: Standing (
+            society: 10,
+            court: 5,
+            friends: [
+                FrancisNurse,
+                GilesCorey,
+                JohnProctor,
+                RebeccaNurse,
+                ReverendJohnHale,
+            ],
+            enemies: [
+                AbigailWilliams,
+                DeputyGovernorDanforth,
+                EzekielCheever,
+            ]
+        )
+    ),
+    Character (
+        id: EzekielCheever,
+        name: "Ezekiel Cheever",
+        standing: Standing (
+            society: 12,
+            court: 50,
+            friends: [
+                MarshalHerrick,
+                DeputyGovernorDanforth,
+                ReverendParris,
+                ReverendJohnHale,
+                JudgeHathorne,
+        
+            ],
+            enemies: [
+                ElizabethProctor,
+                JohnProctor,
+                FrancisNurse,
+                GilesCorey,
+            ]
+        )
+    ),
+    Character (
+        id: FrancisNurse,
+        name: "Francis Nurse",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [
+                RebeccaNurse,
+                JohnProctor,
+                GilesCorey,
+            ],
+            enemies: [
+                AnnPutnam,
+                AbigailWilliams,
+                ReverendJohnHale,
+                JudgeHathorne,
+                ThomasPutnam,
+            ]
+        )
+    ),
+    Character (
+        id: RebeccaNurse,
+        name: "Rebecca Nurse",
+        standing: Standing (
+            society: 20,
+            court: 8,
+            friends: [
+                ElizabethProctor,
+                FrancisNurse,
+                JohnProctor,
+                MarthaCorey,
+                GilesCorey,
+            ],
+            enemies: [
+                ThomasPutnam,
+                AnnPutnam,
+                ReverendJohnHale,
+                JudgeHathorne,
+                EzekielCheever,
+                MarshalHerrick,
+                AbigailWilliams,
+            ]
+        )
+    ),
+    Character (
+        id: GilesCorey,
+        name: "Giles Corey",
+        standing: Standing (
+            society: 2,
+            court: 5,
+            friends: [
+                JohnProctor,
+                MarthaCorey,
+                FrancisNurse,
+            ],
+            enemies: [
+                EzekielCheever,
+                JudgeHathorne,
+                ReverendJohnHale,
+                MarshalHerrick,
+            ]
+        )
+    ),
+    Character (
+        id: GoodyOsborne,
+        name: "Goody Osborne",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: JohnProctor,
+        name: "John Proctor",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: JudgeHathorne,
+        name: "Judge Hathorne",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: MaryWarren,
+        name: "Mary Warren",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: MarshalHerrick,
+        name: "Marshal Herrick",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: MarthaCorey,
+        name: "Martha Corey",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: MercyLewis,
+        name: "Mercy Lewis",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: RebeccaNurse,
+        name: "Rebecca Nurse",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: ReverendJohnHale,
+        name: "Reverend John Hale",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: ReverendParris,
+        name: "Reverend Parris",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: SarahGood,
+        name: "Sarah Good",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: SusannaWalcott,
+        name: "Susanna Walcott",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: ThomasPutnam,
+        name: "Thomas Putnam",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+    Character (
+        id: Tituba,
+        name: "Tituba",
+        standing: Standing (
+            society: 10,
+            court: 10,
+            friends: [],
+            enemies: []
+        )
+    ),
+]

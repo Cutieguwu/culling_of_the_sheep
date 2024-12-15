@@ -1,53 +1,56 @@
+// Copyright (c) 2024 Cutieguwu | Olivia Brooks
+//
+// -*- coding: utf-8 -*-
+// @Title: Culling of the Sheep
+// @Author: Cutieguwu | Olivia Brooks
+// @Description: Components for characters.
+//
+// @Script: characters.rs
+// @Date Created: 03 Dec, 2024
+// @Last Modified: 10 Dec, 2024
+// @Last Modified by: Cutieguwu | Olivia Brooks
+// --------------------------------------------
+
+use std::fs::File;
+
 use rand::distributions::{Distribution, Standard};
+use ron::de::from_reader;
+use serde::Deserialize;
 
 use crate::Gamemode;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Deserialize, PartialEq)]
 pub struct Character {
-    pub name: &'static str,
+    pub id: People,
+    pub name: String,
     pub standing: Standing,
 }
 
 impl Character {
-    pub fn build_player(gamemode: Gamemode) -> Character {
-        Character {
-            name: "You",
-            standing: match gamemode {
-                Gamemode::Abigail => Standing {
-                    society: 10,
-                    court: 10,
-                    friends: vec![],
-                    enemies: vec![]
-                },
-                Gamemode::MaryWarren => Standing {
-                    society: 5,
-                    court: 5,
-                    friends: vec![],
-                    enemies: vec![]
-                },
-                Gamemode::JohnProctor => Standing {
-                    society: 2,
-                    court: 2,
-                    friends: vec![],
-                    enemies: vec![]
-                },
-                Gamemode::GoodyOsborne => Standing {
-                    society: -15,
-                    court: -5,
-                    friends: vec![],
-                    enemies: vec![]
-                }
-            }
-        }
+    pub fn build_player<'a>(
+            characters: &'a mut Vec<Character>,
+            gamemode: Gamemode,
+        ) -> Character {
+        let character_model: People = match gamemode {
+            Gamemode::Abigail => People::AbigailWilliams,
+            Gamemode::MaryWarren => People::MaryWarren,
+            Gamemode::JohnProctor => People::JohnProctor,
+            Gamemode::GoodyOsborne => People::GoodyOsborne,
+        };
+        let position: usize = characters.iter()
+            .position(|x| x.id == character_model)
+            .expect("Failed to locate character to model player by");
+
+        characters.swap_remove(position)
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Deserialize, PartialEq)]
 pub struct Standing {
     pub society: i8,
     pub court: i8,
-    pub friends: Vec<&'static People>,
-    pub enemies: Vec<&'static People>,
+    pub friends: Vec<People>,
+    pub enemies: Vec<People>,
 }
 
 impl Standing {
@@ -67,241 +70,80 @@ impl Standing {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Deserialize, PartialEq)]
 pub enum People {
-    AbigailWilliams(Option<Character>),
-    AnnPutnam(Option<Character>),
-    BettyParris(Option<Character>),
-    DeputyGovernorDanforth(Option<Character>),
-    ElizabethProctor(Option<Character>),
-    EzekielCheever(Option<Character>),
-    FrancisNurse(Option<Character>),
-    GilesCorey(Option<Character>),
-    GoodyOsborne(Option<Character>),
-    JohnProctor(Option<Character>),
-    JudgeHathorne(Option<Character>),
-    MaryWarren(Option<Character>),
-    MarshalHerrick(Option<Character>),
-    MarthaCorey(Option<Character>),
-    MercyLewis(Option<Character>),
-    RebeccaNurse(Option<Character>),
-    ReverendParris(Option<Character>),
-    ReverendJohnHale(Option<Character>),
-    SarahGood(Option<Character>),
-    SusannaWalcott(Option<Character>),
-    ThomasPutnam(Option<Character>),
-    Tituba(Option<Character>),
+    AbigailWilliams,
+    AnnPutnam,
+    BettyParris,
+    DeputyGovernorDanforth,
+    ElizabethProctor,
+    EzekielCheever,
+    FrancisNurse,
+    GilesCorey,
+    GoodyOsborne,
+    JohnProctor,
+    JudgeHathorne,
+    MaryWarren,
+    MarshalHerrick,
+    MarthaCorey,
+    MercyLewis,
+    RebeccaNurse,
+    ReverendJohnHale,
+    ReverendParris,
+    SarahGood,
+    SusannaWalcott,
+    ThomasPutnam,
+    Tituba,
+    Player,
 }
 
 impl People {
-    pub fn build_characters() -> Vec<People> {
-        vec![
-            People::AbigailWilliams(Some(Character {
-                name: "Abigail Williams",
-                standing: Standing {
-                    society: 10,
-                    court: 10,
-                    friends: vec![
-                        &People::BettyParris(None),
-                        &People::DeputyGovernorDanforth(None),
-                        &People::ReverendParris(None),
-                    ],
-                    enemies: vec![
-                        &People::ElizabethProctor(None),
-                        &People::JohnProctor(None),
-                        &People::ReverendJohnHale(None),
-                    ]
-                }
-            })),
-            People::AnnPutnam(Some(Character {
-                name: "Ann Putnam",
-                standing: Standing {
-                    society: 10,
-                    court: 7,
-                    friends: vec![
-                        &People::BettyParris(None),
-                        &People::ThomasPutnam(None),
-                        &People::ReverendParris(None),
-                        &People::MercyLewis(None),
-                    ],
-                    enemies: vec![
-                        &People::ElizabethProctor(None),
-                        &People::JohnProctor(None),
-                        &People::RebeccaNurse(None),
-                    ]
-                }
-            })),
-            People::BettyParris(Some(Character {
-                name: "Betty Parris",
-                standing: Standing {
-                    society: 10,
-                    court: 10,
-                    friends: vec![
-                        &People::AbigailWilliams(None),
-                        &People::ReverendParris(None),
-                    ],
-                    enemies: vec![
-                        &People::JohnProctor(None),
-                        &People::ElizabethProctor(None),
-                    ]
-                }
-            })),
-            People::DeputyGovernorDanforth(Some(Character {
-                name: "Deputy Governor Danforth",
-                standing: Standing {
-                    society: 10,
-                    court: 100,
-                    friends: vec![
-                        &People::AbigailWilliams(None),
-                        &People::JudgeHathorne(None),
-                        &People::ReverendParris(None),
-                        &People::EzekielCheever(None),
-                        &People::MarshalHerrick(None),
-                    ],
-                    enemies: vec![
-                        &People::ElizabethProctor(None),
-                        &People::JohnProctor(None),
-                        &People::ReverendJohnHale(None),
-                        &People::FrancisNurse(None),
-                        &People::GilesCorey(None),
-                        &People::MarthaCorey(None),
-                    ]
-                }
-            })),
-            People::ElizabethProctor(Some(Character{
-                name: "Elizabeth Proctor",
-                standing: Standing {
-                    society: 10,
-                    court: 5,
-                    friends: vec![
-                        &People::FrancisNurse(None),
-                        &People::GilesCorey(None),
-                        &People::JohnProctor(None),
-                        &People::RebeccaNurse(None),
-                        &People::ReverendJohnHale(None),
-                    ],
-                    enemies: vec![
-                        &People::AbigailWilliams(None),
-                        &People::DeputyGovernorDanforth(None),
-                        &People::EzekielCheever(None),
-                    ]
-                }
-            })),
-            People::EzekielCheever(Some(Character {
-                name: "Ezekiel Cheever",
-                standing: Standing {
-                    society: 12,
-                    court: 50,
-                    friends: vec![
-                        &People::MarshalHerrick(None),
-                        &People::DeputyGovernorDanforth(None),
-                        &People::ReverendParris(None),
-                        &People::ReverendJohnHale(None),
-                        &People::JudgeHathorne(None),
-                
-                    ],
-                    enemies: vec![
-                        &People::ElizabethProctor(None),
-                        &People::JohnProctor(None),
-                        &People::FrancisNurse(None),
-                        &People::GilesCorey(None),
-                    ]
-                }
-            })),
-            People::FrancisNurse(Some(Character {
-                name: "Francis Nurse",
-                standing: Standing {
-                    society: 10,
-                    court: 10,
-                    friends: vec![
-                        &People::RebeccaNurse(None),
-                        &People::JohnProctor(None),
-                        &People::GilesCorey(None),
-                    ],
-                    enemies: vec![
-                        &People::AnnPutnam(None),
-                        &People::AbigailWilliams(None),
-                        &People::ReverendJohnHale(None),
-                        &People::JudgeHathorne(None),
-                        &People::ThomasPutnam(None),
-                    ]
-                }
-            })),
-            People::RebeccaNurse(Some(Character {
-                name: "Rebecca Nurse",
-                standing: Standing {
-                    society: 20,
-                    court: 8,
-                    friends: vec![
-                        &People::ElizabethProctor(None),
-                        &People::FrancisNurse(None),
-                        &People::JohnProctor(None),
-                        &People::MarthaCorey(None),
-                        &People::GilesCorey(None),
-                    ],
-                    enemies: vec![
-                        &People::ThomasPutnam(None),
-                        &People::AnnPutnam(None),
-                        &People::ReverendJohnHale(None),
-                        &People::JudgeHathorne(None),
-                        &People::EzekielCheever(None),
-                        &People::MarshalHerrick(None),
-                        &People::AbigailWilliams(None),
-                    ]
-                }
-            })),
-            People::GilesCorey(Some(Character {
-                name: "Giles Corey",
-                standing: Standing {
-                    society: 2,
-                    court: 5,
-                    friends: vec![
-                        &People::JohnProctor(None),
-                        &People::MarthaCorey(None),
-                        &People::FrancisNurse(None),
-                    ],
-                    enemies: vec![
-                        &People::EzekielCheever(None),
-                        &People::JudgeHathorne(None),
-                        &People::ReverendJohnHale(None),
-                        &People::MarshalHerrick(None),
-                    ]
-                }
-            })),
-        ]
+    pub fn load_characters() -> Vec<Character> {
+        let file_path = format!("{}/data/characters.ron", env!("CARGO_MANIFEST_DIR"));
+        let file = File::open(file_path).expect("Error opening character file");
+
+        // Return deserialized file content.
+        match from_reader(file) {
+            Ok(x) => x,
+            Err(e) => {
+                println!("Failed to load config: {}", e);
+
+                std::process::exit(1);
+            }
+        }
     }
 }
 
 impl Distribution<People> for Standard {
     fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> People {
         match rng.gen_range(0..=21) {
-            0 => People::AbigailWilliams(None),
-            1 => People::AnnPutnam(None),
-            2 => People::BettyParris(None),
-            3 => People::DeputyGovernorDanforth(None),
-            4 => People::ElizabethProctor(None),
-            5 => People::EzekielCheever(None),
-            6 => People::FrancisNurse(None),
-            7 => People::GilesCorey(None),
-            8 => People::GoodyOsborne(None),
-            9 => People::JohnProctor(None),
-            10 => People::JudgeHathorne(None),
-            11 => People::MarshalHerrick(None),
-            12 => People::MarthaCorey(None),
-            13 => People::MaryWarren(None),
-            14 => People::RebeccaNurse(None),
-            15 => People::ReverendJohnHale(None),
-            16 => People::ReverendParris(None),
-            18 => People::SarahGood(None),
-            19 => People::SusannaWalcott(None),
-            20 => People::ThomasPutnam(None),
-            21 => People::Tituba(None),
+            0 => People::AbigailWilliams,
+            1 => People::AnnPutnam,
+            2 => People::BettyParris,
+            3 => People::DeputyGovernorDanforth,
+            4 => People::ElizabethProctor,
+            5 => People::EzekielCheever,
+            6 => People::FrancisNurse,
+            7 => People::GilesCorey,
+            8 => People::GoodyOsborne,
+            9 => People::JohnProctor,
+            10 => People::JudgeHathorne,
+            11 => People::MarshalHerrick,
+            12 => People::MarthaCorey,
+            13 => People::MaryWarren,
+            14 => People::RebeccaNurse,
+            15 => People::ReverendJohnHale,
+            16 => People::ReverendParris,
+            18 => People::SarahGood,
+            19 => People::SusannaWalcott,
+            20 => People::ThomasPutnam,
+            21 => People::Tituba,
             _ => unreachable!(),
         }
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum SurvivalStatus {
     PlayerMassacred,
     PlayerLived,
