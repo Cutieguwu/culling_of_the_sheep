@@ -103,13 +103,18 @@ impl EventHandle for Trial {
             }
         };
 
+        /*
         push_enemy(
             player,
             accusable[accusee_index as usize],
             characters
         );
+        */
 
         print_breakline();
+
+        // Temp character killing.
+        characters.remove(accusee_index as usize);
 
         println!("The court will now decide your fate considering.");
 
