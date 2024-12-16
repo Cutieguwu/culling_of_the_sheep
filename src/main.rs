@@ -19,13 +19,12 @@ mod utils;
 use rand::{random, thread_rng};
 use rand::rngs::ThreadRng;
 
+use characters::{Character, People, SurvivalStatus};
+use events::{EventHandle, Events, print_breakline};
 use utils::{fmt_args, ArgType, FlagType};
 
-use crate::characters::{Character, People, SurvivalStatus};
-use crate::events::{EventHandle, Events, print_breakline};
-
 //Number of game rounds.
-const ROUNDS: u8 = 15;
+const ROUNDS: u8 = 40;
 
 fn main() {
     let mut characters: Vec<Character> = People::load_characters();

@@ -184,8 +184,8 @@
         id: GoodyOsborne,
         name: "Goody Osborne",
         standing: Standing (
-            society: 10,
-            court: 10,
+            society: -10,
+            court: -10,
             friends: [],
             enemies: []
         )
